@@ -1,15 +1,54 @@
-# UC-Davis
+# Fashom Recommendation & Visual Search System
 
-### 📁 Sample Images
+This project is a multimodal fashion recommendation engine that combines:
 
-This repository includes sample images in the `/sample_images` folder to **demonstrate and test the image upload functionality** of the system.
+- **LightFM collaborative filtering** for returning users  
+- **Rule-based filtering** for new users  
+- **CLIP-based image similarity search** for visual recommendations  
+- **A conversational chatbot interface** powered by OpenAI  
+- **A Streamlit UI** for interactive product exploration  
 
-These images are used to:
-- Validate the **image feature extraction** process.
-- Test the **image similarity search** using **cosine similarity**.
-- Ensure the end-to-end functionality of the **image-based recommendation engine**.
+The system allows users to:
+1. Receive personalized recommendations (if they are returning customers).
+2. Discover products using filters (for new users).
+3. Upload an image and get visually similar product matches.
+4. Interact through a chatbot that guides the recommendation flow.
 
-> 🔍 When a sample image is uploaded, its visual features are extracted and matched against existing entries in the database to return the most similar results.
+---
+
+## Features
+
+### **1. Collaborative Filtering (Returning Users)**
+- Uses **LightFM** with `logistic` loss.
+- Learns user and product embeddings from past purchase interactions.
+- Generates ranked product recommendations using: score = dot(user_vector, item_vector)
+- No explicit product attributes needed — purely behavioral.
+
+### **2. Cold-Start Filtering (New Users)**
+- For users without history, recommendations come from:
+- Product Type  
+- Color  
+- Prints  
+- Sleeves  
+- Operates via standard DataFrame filtering.
+
+### **3. Image-Based Similarity Search (CLIP)**
+- Uses **CLIP ViT-B/32** from HuggingFace.
+- Extracts embeddings for:
+- User-uploaded images  
+- Combined product metadata (Color, Neck, Prints, Sleeves)
+- Computes cosine similarity to return visually similar items.
+- Independent of the LightFM recommender.
+
+### **4. Chatbot Interface**
+- Conversational guidance powered by **GPT-4o-mini**.
+- Helps users navigate:
+- Old-user recommendations
+- New-user filtering
+- Image similarity search
+- Manages multi-step conversational state with `session_state`.
+
+---
 
 ## Environment Variables
 
@@ -26,3 +65,7 @@ The following environment variables are required:
 
 1.  Make a copy of the `.env.example` file and rename it to `.env`.
 2.  Replace the placeholder values in the `.env` file with your actual API key and file paths.
+
+## Running the App
+streamlit run chatbottest.py
+
