@@ -1,4 +1,4 @@
-# Fashom Recommendation & Visual Search System
+# Recommendation Engine & Visual Search System
 
 This project is a multimodal fashion recommendation engine that combines:
 
